@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fresh</title>
+
+    <link rel="icon" type="image/png" href="img/favicon.png" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="./js/bundle.js"></script>
+</head>
+<body>
+
+  <div>
+	<button id="enableEthereumButton" class="button is-button k-button k-primary raised has-gradient is-bold is-fullwidth">
+                                    <span id="connectAccount" class="text">Connect Web3</span>
+                                    <span class="front-gradient"></span>
+                                </button>
+        <button id="enableEthereumButtonb" class="button is-button k-button k-primary raised has-gradient is-bold is-fullwidth">
+                                    <span id="connectAccountb" class="text">Balance</span>
+                                    <span class="front-gradient"></span>
+                                </button>
+        <button id="sendEthButton" class="button is-button k-button k-primary raised has-gradient is-bold is-fullwidth">
+                                    <span class="text">Send</span>
+                                    <span class="front-gradient"></span>
+                                </button>
+  </div>
+<div id="connectAccountc">ZEP</div>
+<div id="accountBalance">ZEP</div>
+<div id="zepBalance">ZEP</div>
+
+  <script type="text/javascript">
+    
+      const connectAccount = document.querySelector('#connectAccount');
+      const connectAccountb = document.querySelector('#connectAccountb');
+      const connectAccountc = document.querySelector('#connectAccountc');
+      const accountBalance = document.querySelector('#accountBalance');
+      const zepBalance = document.querySelector('#zepBalance');
+      const enableEthereumButton = document.querySelector('#enableEthereumButton');
+      const enableEthereumButtonb = document.querySelector('#enableEthereumButtonb');
+      const sendEthButton = document.querySelector('#sendEthButton');
+      const web3 = new Web3(window.ethereum);
+
+const ABI = [
+  {
+    constant: true,
+    inputs: [
+      {
+        name: "_owner",
+        type: "address",
+      },
+    ],
+    name: "balanceOf",
+    outputs: [
+      {
+        name: "balance",
+        type: "uint256",
+      },
+    ],
+    payable: false,
+    type: "function",
+  },
+];
+const address = '0xB5204883B815F63Aa1c74De5FE35f93Fe5ae3f0d';
+const contract = new web3.eth.Contract(ABI, address);
+
+let accounts = [];
+
+//Sending Ethereum to an address
+sendEthButton.addEventListener('click', () => {
+ ethereum
+    .request({
+      method: 'eth_sendTransaction',
+      params: [
+        {
+          from: accounts[0],
+          to: '0x9c0523909ebeB770e372377A655bCA4A5f5b406E',
+          value: '0x' + (1000000000000000000).toString(16),
+        },
+      ],
+    })
+    .then((txHash) => console.log(txHash))
+    .catch((error) => console.error);
+});
+
+enableEthereumButton.addEventListener('click', () => {
+  getAccount();
+});
+
+enableEthereumButtonb.addEventListener('click', () => {
+  getAccount();
+});
+
+async function getAccount() {
+  accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+  const account = accounts[0];
+  connectAccount.innerHTML = account;
+  connectAccountb.innerHTML = account;
+  connectAccountc.innerHTML = account;
+  const result = await ethereum.request({ method: 'eth_getBalance' , params: [account, 'latest']});
+  let wei = parseInt(result,16);
+  let balance = wei / (10**18);
+  const balances = balance;
+  accountBalance.innerHTML = balances;
+  const tokenbalance = await contract.methods.balanceOf(account).call();
+  let weib = parseInt(tokenbalance,16);
+  let tokenbalances = tokenbalance / (10**18);
+  zepBalance.innerHTML = tokenbalances;
+}
+
+  </script>
+</body>
+</html>

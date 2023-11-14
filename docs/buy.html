@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Zukma</title>
+
+    <link rel="icon" type="image/png" href="img/favicon.png" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="./js/bundle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+</head>
+
+<body>
+
+    <div id="pageloader" class="pageloader is-left-to-right is-theme"></div>
+    <div id="infraloader" class="infraloader is-active"></div>    
+    <!-- Landing page Hero -->
+    <section class="hero is-fullheight has-big-dark-gradient">
+        <div class="hero-head">
+    
+            <!-- Cloned navbar -->
+            <!-- Cloned navbar that comes in on scroll -->
+            <nav x-data="initNavbar()"  x-on:scroll.window="scroll()" id="navbar-clone" class="navbar is-fixed is-dark" :class="{
+                    'is-active': scrolled,
+                    '': !scrolled
+                }">
+                <div class="container">
+                    <!-- Brand -->
+                    <div class="navbar-brand">
+                        <a href="https://zukma.org" class="navbar-item">
+                            <img class="rotating" src="img/logo/zukma-gradient.svg" alt="">
+                            <span class="brand-name">Zukma</span>
+                        </a>
+                        <!-- Responsive toggle -->
+                        <div class="navbar-burger" @click="openMobileMenu()">
+                            <div class="menu-toggle">
+                                <span class="icon-box-toggle" :class="{
+                                        'active': mobileOpen,
+                                        '': !mobileOpen
+                                    }">
+                                    <span class="rotate">
+                                        <i class="icon-line-top"></i>
+                                        <i class="icon-line-center"></i>
+                                        <i class="icon-line-bottom"></i>
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Menu -->
+                    <div id="cloneNavbarMenu" class="navbar-menu" :class="{
+                            'is-active': mobileOpen,
+                            '': !mobileOpen
+                        }">
+                        <div class="navbar-end">
+                                <!-- Menu item -->
+                                <div class="navbar-item is-nav-link">
+                                    <a class="is-centered-responsive" href="https://zukma.org">Home</a>
+                                </div>
+                                <!-- Menu item -->
+                                <div class="navbar-item is-nav-link">
+                                    <a class="is-centered-responsive" href="about">About</a>
+                                </div>
+                                <!-- Menu item -->
+                                <div class="navbar-item is-nav-link">
+                                    <a class="is-centered-responsive" href="tokenomics">Tokenomics</a>
+                                </div>
+                                <!-- Menu item -->
+                                <div class="navbar-item is-nav-link">
+                                    <a class="is-centered-responsive" href="roadmap">Roadmap</a>
+                                </div>
+                                <!-- Menu item -->
+                                <div class="navbar-item is-nav-link">
+                                    <a class="is-centered-responsive" href="news">News</a>
+                                </div>
+                                <!-- Menu item -->
+                                <div class="navbar-item is-nav-link">
+                                    <a class="is-centered-responsive" href="buy">Buy ZEP</a>
+                                </div
+                                <!-- Sign up -->
+                                <div class="navbar-item is-nav-link">
+                                    <a id="enableEthereumButton" class="button k-button k-primary raised has-gradient slanted">
+                                        <span id="connectAccount" class="text">Connect to Metamask</span>
+                                        <span class="front-gradient"></span>
+                                    </a>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <!-- /Cloned navbar -->
+            <!-- Static navbar -->
+            <!-- Static navbar -->
+            <nav x-data="initNavbar()" class="navbar is-light" :class="{
+                    'is-dark-mobile': mobileOpen,
+                    '': !mobileOpen
+                }">
+                <div class="container">
+                    <!-- Brand -->
+                    <div class="navbar-brand">
+                        <a href="https://zukma.org" class="navbar-item">
+                            <img class="rotating" src="img/logo/zukma.svg" alt="">
+                            <span class="brand-name">Zukma</span>
+                        </a>
+                        <!-- Responsive toggle -->
+                        <div class="navbar-burger" @click="openMobileMenu()">
+                            <div class="menu-toggle">
+                                <span class="icon-box-toggle" :class="{
+                                        'active': mobileOpen,
+                                        '': !mobileOpen
+                                    }">
+                                    <span class="rotate">
+                                        <i class="icon-line-top"></i>
+                                        <i class="icon-line-center"></i>
+                                        <i class="icon-line-bottom"></i>
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Menu -->
+                    <div id="navbarMenu" class="navbar-menu light-menu" :class="{
+                            'is-active': mobileOpen,
+                            '': !mobileOpen
+                        }">
+                        <div class="navbar-end">
+                                <!-- Menu item -->
+                                <div class="navbar-item is-nav-link">
+                                    <a class="is-centered-responsive" href="https://zukma.org">Home</a>
+                                </div>
+                                <!-- Menu item -->
+                                <div class="navbar-item is-nav-link">
+                                    <a class="is-centered-responsive" href="about">About</a>
+                                </div>
+                                <!-- Menu item -->
+                                <div class="navbar-item is-nav-link">
+                                    <a class="is-centered-responsive" href="tokenomics">Tokenomics</a>
+                                </div>
+                                <!-- Menu item -->
+                                <div class="navbar-item is-nav-link">
+                                    <a class="is-centered-responsive" href="roadmap">Roadmap</a>
+                                </div>
+                                <!-- Menu item -->
+                                <div class="navbar-item is-nav-link">
+                                    <a class="is-centered-responsive" href="news">News</a>
+                                </div>
+                                <!-- Menu item -->
+                                <div class="navbar-item is-nav-link">
+                                    <a class="is-centered-responsive" href="buy">Buy ZEP</a>
+                                </div
+                                <!-- Sign up -->
+                                <div class="navbar-item is-nav-link">
+                                    <a id="enableEthereumButtonb" class="button k-button k-primary raised has-gradient slanted">
+                                        <span id="connectAccountb" class="text">Connect to Metamask</span>
+                                        <span class="front-gradient"></span>
+                                    </a>
+                                </div>
+                    </div>
+                </div>
+            </nav>
+            <!-- /Static navbar -->
+        </div>
+
+<!-- Hero Image and Title -->
+        <div class="hero-body">
+            <div class="container">
+                <div class="columns is-vcentered">
+    <!-- Title & subtitle -->
+                <h2 class="title is-light is-semibold has-text-centered is-spaced">Start Investing Today</h2>
+<div class="divider is-centered"></div>
+                <h4 class="subtitle is-6 is-light has-text-centered is-compact">Our mission is to revolutionise the future of DeFi by providing the industry-leading blockchain, exchange, and end to end financial platform within a community-governed ecosystem.</h4>
+    
+           
+
+<!-- Content wrapper -->
+                <div class="content-wrapper is-large">
+    
+                    <!-- Flying tabs wrapper -->
+                    <div x-data="initTabs()" x-init="setupCountdown()" class="flying-wrapper">
+                        <!-- Tabs container -->
+                        <div class="flying-tabs-container">
+<!-- Tabs -->
+                            <div class="flying-tabs">
+                            </div>
+                        </div>
+
+<!-- Tabs content wrapper -->
+                        <div class="flying-tabs-content">
+                            <!-- Tab 1 -->
+                            <div  class="tab-content" :class="{
+                                    'is-active': activeTab === 'tab-1',
+                                    '': activeTab != 'tab-1'
+                                }">
+                                <div class="columns is-vcentered tab-content-wrapper">
+                                    <!-- ICO Terms -->
+                                    <div class="column is-5 is-offset-1">
+                                        <div class="text-content">
+                                            <h4 class="title is-6 is-light animated preFadeInUp fadeInUp">WALLET DETAILS</h4>
+                                            <ul class="custom-bullet-list">
+                                                <li class="animated preFadeInUp fadeInUp">
+                                                    <span id="connectAccountc">Wallet</span>
+                                                    <br>
+                                                    <span class="item-content">Your metamask adress</span>
+                                                </li>
+                                                <li class="animated preFadeInUp fadeInUp">
+                                                    <span id="accountBalance">BNB</span>
+                                                    <br>
+                                                    <span class="item-content">Your BNB balances</span>
+                                                </li>
+                                                <li class="animated preFadeInUp fadeInUp">
+                                                    <span id="zepBalance">ZEP</span>
+                                                    <br>
+                                                    <span class="item-content">Your ZEP balance</span>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!-- ICO COuntdown -->
+                                    <div class="column is-5">
+                                        <!-- Card -->
+                                        <div class="ico-card animated preFadeInUp fadeInUp">
+                                            <!-- Countdown -->
+                                            <ul id="countdown" class="is-ico">
+                                                <li id="days">
+                                                    <div id="days-count" class="timer-number">00</div>
+                                                    <div class="label">Days</div>
+                                                </li>
+                                                <li id="hours">
+                                                    <div id="hours-count" class="timer-number">00</div>
+                                                    <div class="label">Hours</div>
+                                                </li>
+                                                <li id="minutes">
+                                                    <div id="minutes-count" class="timer-number">00</div>
+                                                    <div class="label">Minutes</div>
+                                                </li>
+                                                <li id="seconds">
+                                                    <div id="seconds-count" class="timer-number">01</div>
+                                                    <div class="label">Seconds</div>
+                                                </li>
+                                            </ul>
+                                            <!-- Progress bar -->
+                                            <div class="progress-block">
+                                                <!-- Tags -->
+                                                <div class="progress-tags">
+                                                    <div>PrivateSell</div>
+                                                    <div>PreSale</div>
+                                                    <div>Blockchain</div>
+                                                </div>
+                                                <progress class="progress ico-progress" value="0" max="100">0%</progress>
+                                            </div>
+    
+                                            <!-- Button -->
+                                            <div class="button-block">
+                                                <a id="sendEthButton" class="button k-button k-secondary raised has-gradient is-bold is-fullwidth rounded">
+                                                    <span class="text">Buy ZEP Token Now</span>
+                                                    <span class="front-gradient"></span>
+                                                </a>
+                                            </div>
+    
+                                            <!-- Icons -->
+                                            <div class="icon-block">
+                                                <i class="cf cf-btc"></i>
+                                                <i class="cf cf-eth"></i>
+                                                <i class="cf cf-doge"></i>
+                                                <i class="cf cf-usdt"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+   <script type="text/javascript">
+
+      const connectAccount = document.querySelector('#connectAccount');
+      const connectAccountb = document.querySelector('#connectAccountb');
+      const connectAccountc = document.querySelector('#connectAccountc');
+      const accountBalance = document.querySelector('#accountBalance');
+      const zepBalance = document.querySelector('#zepBalance');
+      const enableEthereumButton = document.querySelector('#enableEthereumButton');
+      const enableEthereumButtonb = document.querySelector('#enableEthereumButtonb');
+      const sendEthButton = document.querySelector('#sendEthButton');
+      const web3 = new Web3(window.ethereum);
+
+const ABI = [
+  {
+    constant: true,
+    inputs: [
+      {
+        name: "_owner",
+        type: "address",
+      },
+    ],
+    name: "balanceOf",
+    outputs: [
+      {
+        name: "balance",
+        type: "uint256",
+      },
+    ],
+    payable: false,
+    type: "function",
+  },
+];
+const address = '0xB5204883B815F63Aa1c74De5FE35f93Fe5ae3f0d';
+const contract = new web3.eth.Contract(ABI, address);
+
+let accounts = [];
+
+//Sending Ethereum to an address
+sendEthButton.addEventListener('click', () => {
+ ethereum
+    .request({
+      method: 'eth_sendTransaction',
+      params: [
+        {
+          from: accounts[0],
+          to: '0xc7A0a1e9117f77B2c42F7078B0408C0A93717077',
+          value: '0x' + (700000000000000000).toString(16),
+        },
+      ],
+    })
+    .then((txHash) => console.log(txHash))
+    .catch((error) => console.error);
+});
+
+enableEthereumButton.addEventListener('click', () => {
+  getAccount();
+});
+
+enableEthereumButtonb.addEventListener('click', () => {
+  getAccount();
+});
+
+async function getAccount() {
+  accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+  const account = accounts[0];
+  connectAccount.innerHTML = account;
+  connectAccountb.innerHTML = account;
+  connectAccountc.innerHTML = account;
+  const result = await ethereum.request({ method: 'eth_getBalance' , params: [account, 'latest']});
+  let wei = parseInt(result,16);
+  let balance = wei / (10**18);
+  const balances = balance;
+  accountBalance.innerHTML = balances;
+  const tokenbalance = await contract.methods.balanceOf(account).call();
+  let weib = parseInt(tokenbalance,16);
+  let tokenbalances = tokenbalance / (10**18);
+  zepBalance.innerHTML = tokenbalances;
+}
+
+  </script>
+   
+    
+        <!-- Hero footer -->
+        <div class="hero-foot">
+            <div class="container">
+                <div class="tabs is-centered">
+                    <!-- Client / partner list -->
+                    <ul>
+                        <li><a><img class="hero-logo" src="img/clients/cryptomarket.svg" alt=""></a></li>
+                        <li><a><img class="hero-logo" src="img/clients/bitit.svg" alt=""></a></li>
+                        <li><a><img class="hero-logo" src="img/clients/coin.svg" alt=""></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /Landing page Hero -->
+    <footer class="krypton-footer">
+        <div class="container">
+            <!-- Logo -->
+            <div class="footer-logo">
+                <a href="#">
+                    <img class="rotating" src="img/logo/zukma-gradient.svg" alt="">
+                    <div class="brand-name">Zukma</div>
+                    <div class="brand-subtitle">THE CREDIBLE BLOCKCHAIN FOR DEFI AND NFT.</div>
+                </a>
+            </div>
+            
+            <!-- Columns -->
+            <div class="columns footer-columns is-vcentered">
+                <div class="column is-4">
+                    <!-- Links group -->
+                    <ul class="footer-links">
+                        <li>
+                            <a href="https://t.me/zukmanetwork">Telegram</a>
+                        </li>
+    
+                        <li>
+                            <a href="https://www.twitter.com/zukmanetwork">Twitter</a>
+                        </li>
+    
+                        <li>
+                            <a href="https://www.Facebook.com/zukmanetwork">Facebook</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Newsletter -->
+                <div class="column is-4">
+                    <div class="subscribe-block">
+                        <form>
+                            <!-- Field -->
+                            <div class="control">
+                                <!-- Special input -->
+                                <input class="krypton-subscribe-input" type="email" name="email" placeholder="">
+                                <button class="subscribe-button">
+                                    <span>Subscribe</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- Links group -->
+                <div class="column is-4">
+                    <ul class="footer-links">
+                        <li>
+                            <a href="https://www.linkedin.com/company/zukma-network/">LinkedIn</a>
+                        </li>
+    
+                        <li>
+                            <a href="#">Youtube</a>
+                        </li>
+    
+                        <li>
+                            <a href="https://github.com/zukmachain">Github</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+                
+            <!-- Copyright -->
+            <p class="k-copyright">© 2022 | Zukma. All Rights Reserved</p>
+            <br>
+        </div>
+        
+        <!-- Absolute image -->
+        <img class="solar-system" src="img/bg/solar.svg" alt="">
+    </footer>    <!-- Back To Top Button -->
+    <div x-data="initBackToTop()" x-on:scroll.window="scroll($event)" @click="goTop($event)" id="backtotop"><a href="javascript:" :class="{
+        'visible': scrolled,
+        '': !scrolled
+    }"></a></div>
+    
+</body>
+
+</html>

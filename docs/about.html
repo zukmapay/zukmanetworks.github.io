@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Zukma</title>
+
+    <link rel="icon" type="image/png" href="img/favicon.png" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
+
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+
+<body>
+
+    <div id="pageloader" class="pageloader is-left-to-right is-theme"></div>
+    <div id="infraloader" class="infraloader is-active"></div>    
+    <div class="token-wrapper">
+        <!-- Landing page Hero -->
+        <section class="hero is-medium">
+            <div class="hero-head">
+    
+                <!-- Cloned navbar -->
+                <!-- Cloned navbar that comes in on scroll -->
+                <nav x-data="initNavbar()"  x-on:scroll.window="scroll()" id="navbar-clone" class="navbar is-fixed is-dark" :class="{
+                        'is-active': scrolled,
+                        '': !scrolled
+                    }">
+                    <div class="container">
+                        <!-- Brand -->
+                        <div class="navbar-brand">
+                            <a href="https://zukma.org" class="navbar-item">
+                                <img class="rotating" src="img/logo/zukma-gradient.svg" alt="">
+                                <span class="brand-name">Zukma</span>
+                            </a>
+                            <!-- Responsive toggle -->
+                            <div class="navbar-burger" @click="openMobileMenu()">
+                                <div class="menu-toggle">
+                                    <span class="icon-box-toggle" :class="{
+                                            'active': mobileOpen,
+                                            '': !mobileOpen
+                                        }">
+                                        <span class="rotate">
+                                            <i class="icon-line-top"></i>
+                                            <i class="icon-line-center"></i>
+                                            <i class="icon-line-bottom"></i>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Menu -->
+                        <div id="cloneNavbarMenu" class="navbar-menu" :class="{
+                                'is-active': mobileOpen,
+                                '': !mobileOpen
+                            }">
+                            <div class="navbar-end">
+                                <div class="navbar-end">
+                                <!-- Menu item -->
+                                <div class="navbar-item is-nav-link">
+                                    <a class="is-centered-responsive" href="https://zukma.org">Home</a>
+                                </div>
+                                <!-- Menu item -->
+                                <div class="navbar-item is-nav-link">
+                                    <a class="is-centered-responsive" href="about">About</a>
+                                </div>
+                                <!-- Menu item -->
+                                <div class="navbar-item is-nav-link">
+                                    <a class="is-centered-responsive" href="tokenomics">Tokenomics</a>
+                                </div>
+                                <!-- Menu item -->
+                                <div class="navbar-item is-nav-link">
+                                    <a class="is-centered-responsive" href="roadmap">Roadmap</a>
+                                </div>
+                                <!-- Menu item -->
+                                <div class="navbar-item is-nav-link">
+                                    <a class="is-centered-responsive" href="news">News</a>
+                                </div>
+                                <!-- Menu item -->
+                                <div class="navbar-item is-nav-link">
+                                    <a class="is-centered-responsive" href="buy">Buy ZEP</a>
+                                </div
+                                <!-- Sign up -->
+                                <div class="navbar-item is-nav-link">
+                                    <a id="enableEthereumButton" class="button k-button k-primary raised has-gradient slanted">
+                                        <span id="connectAccount" class="text">Connect to Metamask</span>
+                                        <span class="front-gradient"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+                <!-- /Cloned navbar -->
+                <!-- Static navbar -->
+                <!-- Static navbar -->
+                <nav x-data="initNavbar()" class="navbar is-light" :class="{
+                        'is-dark-mobile': mobileOpen,
+                        '': !mobileOpen
+                    }">
+                    <div class="container">
+                        <!-- Brand -->
+                        <div class="navbar-brand">
+                            <a href="https://zukma.org" class="navbar-item">
+                                <img class="rotating" src="img/logo/zukma.svg" alt="">
+                                <span class="brand-name">Zukma</span>
+                            </a>
+                            <!-- Responsive toggle -->
+                            <div class="navbar-burger" @click="openMobileMenu()">
+                                <div class="menu-toggle">
+                                    <span class="icon-box-toggle" :class="{
+                                            'active': mobileOpen,
+                                            '': !mobileOpen
+                                        }">
+                                        <span class="rotate">
+                                            <i class="icon-line-top"></i>
+                                            <i class="icon-line-center"></i>
+                                            <i class="icon-line-bottom"></i>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Menu -->
+                        <div id="navbarMenu" class="navbar-menu light-menu" :class="{
+                                'is-active': mobileOpen,
+                                '': !mobileOpen
+                            }">
+                            <div class="navbar-end">
+                                <!-- Menu item -->
+                                <div class="navbar-item is-nav-link">
+                                    <a class="is-centered-responsive" href="https://zukma.org">Home</a>
+                                </div>
+                                <!-- Menu item -->
+                                <div class="navbar-item is-nav-link">
+                                    <a class="is-centered-responsive" href="about">About</a>
+                                </div>
+                                <!-- Menu item -->
+                                <div class="navbar-item is-nav-link">
+                                    <a class="is-centered-responsive" href="tokenomics">Tokenomics</a>
+                                </div>
+                                <!-- Menu item -->
+                                <div class="navbar-item is-nav-link">
+                                    <a class="is-centered-responsive" href="roadmap">Roadmap</a>
+                                </div>
+                                <!-- Menu item -->
+                                <div class="navbar-item is-nav-link">
+                                    <a class="is-centered-responsive" href="news">News</a>
+                                </div>
+                                <!-- Menu item -->
+                                <div class="navbar-item is-nav-link">
+                                    <a class="is-centered-responsive" href="buy">Buy ZEP</a>
+                                </div
+                                <!-- Sign up -->
+                                <div class="navbar-item is-nav-link">
+                                    <a id="enableEthereumButtonb" class="button k-button k-primary raised has-gradient slanted">
+                                        <span id="connectAccount" class="text">Connect to Metamask</span>
+                                        <span class="front-gradient"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+                <!-- /Static navbar -->
+            </div>
+    
+            <div class="hero-body has-text-centered">
+                <div class="columns">
+                    <div class="column is-6 is-offset-3">
+                        <div class="token-image">
+                            <img src="img/illustrations/krypton-token.svg">
+                        </div>
+                        <h1 class="title is-2 is-light is-semibold is-spaced main-title">ZUKMA</h1>
+                        <h2 class="subtitle is-5 is-light is-thin">The Credible Blockchain for DeFi AND NFT</h2>
+                        <!-- CTA -->
+                        <p>
+                            <a href="start" class="button k-button k-primary raised has-gradient is-fat is-bold">
+                                <span class="text">More details</span>
+                                <span class="front-gradient"></span>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    
+        <section class="section is-medium">
+            <div class="container">
+    
+                <!-- Content wrapper -->
+                <div class="content-wrapper">
+    
+                    <div class="columns is-vcentered">
+                        <!-- Feature content -->
+                        <div class="column is-5 is-offset-1">
+                            <div class="side-feature-content">
+    
+                                <h3 class="title is-4 is-light">About</h3>
+                                <div class="divider"></div>
+                               <p class="is-light"><b>Zukma</b></a> is a blockchain network with the core pillars in <b>Decentralize Treasury, cross-chain operability and Web3.</b> The networks have an advanced suite of governance tools and, using the Substrate framework that allows autonomous deployment of upgrades. The Zukma Chain are adapting therefore to the growing needs of a DeFi loving community without the risk of Hardfork by blockchain forks.</p>
+                          <br>
+                               <p class="is-light">By connecting the three pillars (Decentralize Treasury, Cross-Chain Operability and Web3) the Zukma ecosystem serves as a foundational layer for a truly decentralized DeFi network, where DeFi users control their data and are not limited by trust bounds within the network.</p>
+                            </div>
+                        </div>
+    
+                        <!-- Feature image -->
+                        <div class="column is-7">
+                            <img class="side-feature" src="img/illustrations/krypton-token-network.svg" alt="">
+                        </div>
+                    </div>
+    
+                    <div class="columns is-vcentered">
+                        <!-- Feature image -->
+                        <div class="column is-7">
+                            <img class="side-feature" src="img/illustrations/token-stack.svg" alt="">
+                        </div>
+    
+                        <!-- Feature content -->
+                        <div class="column is-5">
+                            <div class="side-feature-content">
+    
+                                <h3 class="title is-4 is-light">What Our Mission</h3>
+                                <div class="divider"></div>
+                                <p class="is-light">We’re on a mission to truly decentralize finance. We revolutionize the future of DeFi by providing the industry-leading ecosystem, blockchain, exchange and end-to-end financial platform within a community-governed ecosystem.</p>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="columns is-vcentered">
+                        <!-- Feature content -->
+                        <div class="column is-5 is-offset-1">
+                            <div class="side-feature-content">
+    
+                                <h3 class="title is-4 is-light">Why Zukma</h3>
+                                <div class="divider"></div>
+                                <p class="is-light">Back in the early 2000s, when the internet was gaining popularity for the first time, the internet featured read-only, static, basic web pages. The online connected world at the time was only the beginning of virtual data, identities, and more. The internet during this time was also called the Web 1.0. As social media platforms and online businesses began to emerge, the internet transformed into the Web 2.0. This upgraded internet, which we still use today, features dynamic, interactive web pages, where users can read and write information plus publish their own for others to see. However, this version of the web comes with downsides, dealing with data control, privacy issues, and the consequences of trust. This is where the WEB3 comes into the picture.</p>
+                            <br>
+                                <p class="is-light">The WEB3 enables us to take centralized infrastructure and applications like CEX's and turning them into decentralized, trust-free protocols. The goal is to transform the DeFi space into a decentralized web, where users control their own data and identity in a trust-free environment. Our movement aims to remove intermediaries and build a trustless infrastructure for DeFi.</p>
+                            </div>
+                        </div>
+    
+                        <!-- Feature image -->
+                        <div class="column is-7">
+                            <img class="side-feature" src="img/illustrations/token-lock.svg" alt="">
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- Spaced divider -->
+                <div class="token-documentation">
+                    <div class="documentation-title">
+                        Documentation
+                    </div>
+                    <div class="columns is-vcentered">
+                        <div class="column is-5">
+                            <div class="columns">
+                                <div class="column is-6">
+                                    <ul>
+                                        <li class="is-active">English</li>
+                                        <li>Español</li>
+                                        <li>Français</li>
+                                        <li>Deutch</li>
+                                    </ul>
+                                </div>
+                                <div class="column is-6">
+                                    <ul>
+                                        <li>العربية</li>
+                                        <li>русский</li>
+                                        <li>Polski</li>
+                                        <li>日本語</li>
+                                    </ul>
+                                </div>
+                            </div>
+    
+                        </div>
+                        <div class="column is-7">
+                            <div class="columns is-vcentered has-text-centered">
+                                
+                                <div class="column is-4">
+                                    <div class="document-block has-text-centered">
+                                        <img src="img/icons/whitepaper.svg">
+                                        <a href="https://docs.zukma.org" class="button k-button k-primary raised has-gradient is-bold">
+                                            <span class="text">Whitepaper</span>
+                                            <span class="front-gradient"></span>
+                                        </a>
+                                    </div>
+                                </div>
+                                
+                                <div class="column is-4">
+                                    <div class="document-block has-text-centered">
+                                        <img src="img/icons/techpaper.svg">
+                                        <a href="https://docs.zukma.org/dev-guides/" class="button k-button k-primary raised has-gradient is-bold">
+                                            <span class="text">Techpaper</span>
+                                            <span class="front-gradient"></span>
+                                        </a>
+                                    </div>
+                                </div>
+                                
+                                <div class="column is-4">
+                                    <div class="document-block has-text-centered">
+                                        <img src="img/icons/livechat.svg">
+                                        <a href="https://t.me/zukmanetwork" class="button k-button k-secondary raised has-gradient is-bold">
+                                            <span class="text">Live Chat</span>
+                                            <span class="front-gradient"></span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- /Content wrapper -->
+    
+                <!-- Spaced divider -->
+                <div class="divider is-centered is-spacer"></div>
+                <!-- Title & subtitle -->
+                    <h2 class="title is-light is-semibold has-text-centered is-spaced">Frequently Asked Questions</h2>
+                    <h4 class="subtitle is-6 is-light has-text-centered is-compact">Feel free to join our social media channels to connect with our community and admins who will help you answer any open question.</h4>
+    
+                    <!-- Content wrapper -->
+                    <div class="content-wrapper is-large">
+                        <div class="columns">
+                            <div class="column is-5 is-offset-1">
+    
+                                <!-- Accordion -->
+                                <div class="accordion">
+                                    <!-- Option -->
+                                    <div class="accordion-option">
+                                        <input type="checkbox" id="toggle1" class="accordion-toggle" />
+                                        <label class="accordion-title" for="toggle1">
+                                            What makes Zukma unique?
+                                        </label>
+                                        <div class="accordion-content">
+                                            <p>The Zukma team developed their blockchain from the user's perspective with a low-fee, fast and cross-chain capable DApp in mind. Rather than focusing on ambiguous blockchain performance indicators, Zukma focused on what matters most for user experience, ease of use and simplicity to bring an unique cross-chain DeFi experience to the market. This manifests in various aspects e.g. forkless runtime upgrades which renders hard-forks unnecessary keeping the developer community together and a truly decentralised governance that allows every holder to propose changes publicly which can be backed by the community to ensure user-centricity and to maintain the future relevance of the Zukma blockchain. </p>
+                                        </div>
+                                    </div>
+    
+                                    <!-- Option -->
+                                    <div class="accordion-option">
+                                        <input type="checkbox" id="toggle2" class="accordion-toggle" />
+                                        <label class="accordion-title" for="toggle2">
+                                            How fast is the Zukma blockchain?
+                                        </label>
+                                        <div class="accordion-content">
+                                            <p>Zukma utilizes a Smart-Performance logic which optimizes transaction throughput (TPS) and the time to transaction finality in relationship to the network load. This keeps the blockchain in an optimal place between eco-friendliness and performance and contributes to Zukma's sustainability. Zukma performs at 1500 TPS, 60sec transaction finality with 300 owned test nodes. </p>
+                                        </div>
+                                    </div>
+    
+                                    <!-- Option -->
+                                    <div class="accordion-option">
+                                        <input type="checkbox" id="toggle3" class="accordion-toggle" />
+                                        <label class="accordion-title" for="toggle3">
+                                            Can I monitor my investments on an app?
+                                        </label>
+                                        <div class="accordion-content">
+                                            <p>Yes, ZEP is listed by multiple coin and token trackers like CoinMarketCap, CoinGecko and Coincodex. Furthermore, Zukma also launched its mobile app, enabling users to interact with Zukma's Substrate and EVM side through a single mobile interface. </p>
+                                        </div>
+                                    </div>
+    
+                                    <!-- Option -->
+                                    <div class="accordion-option">
+                                        <input type="checkbox" id="toggle4" class="accordion-toggle" />
+                                        <label class="accordion-title" for="toggle4">
+                                            Is the Zukma blockchain energy efficient?
+                                        </label>
+                                        <div class="accordion-content">
+                                            <p>Yes, Zukma utilizes a nominated proof of stake (NPoS) consensus mechanism, which does not require intense mathematical computations. The community can operate blockchain nodes on efficient cloud-hosted servers to minimize the carbon footprint of ZEP. Furthermore, Zukma divided the consensus mechanism in two distinct protocols (BABE & GRANDPA) to decrease the network load and computational requirements while maintaining speed and security. </p>
+                                        </div>
+                                    </div>
+    
+                                    <!-- Option -->
+                                    <div class="accordion-option">
+                                        <input type="checkbox" id="toggle5" class="accordion-toggle" />
+                                        <label class="accordion-title" for="toggle5">
+                                            How many blockchains can be bridged?
+                                        </label>
+                                        <div class="accordion-content">
+                                            <p>The Substrate framework renders Zukma extremely versatile allowing seamless connections to the Polkadot ecosystem and all EVM-based blockchains. This enables Zukma to connect with the majority of blockchains currently available in the market e.g. Ethereum, Binance Smart Chain, Polygon, Avalanche, Polkadot, Moonbeam, Solana and many more. </p>
+                                        </div>
+                                    </div>
+                       
+                                    <!-- Option -->
+                                    <div class="accordion-option">
+                                        <input type="checkbox" id="toggle6" class="accordion-toggle" />
+                                        <label class="accordion-title" for="toggle6">
+                                            Does Zukma support Solidity?
+                                        </label>
+                                        <div class="accordion-content">
+                                            <p>Zukma is Solidity-compatible. All of your favorite tools like Remix, Truffle, and Harthat work out of the box. But why stop at Solidity? Zukm also supports INK! a Rust-based embedded domain specific language (eDSL) for writing WebAssembly. </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /Accordion -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Content wrapper -->
+    
+            </div>
+        </section>
+    </div>
+
+    <footer class="krypton-footer">
+        <div class="container">
+            <!-- Logo -->
+            <div class="footer-logo">
+                <a href="#">
+                    <img class="rotating" src="img/logo/zukma-gradient.svg" alt="">
+                    <div class="brand-name">Zukma</div>
+                    <div class="brand-subtitle">THE CREDIBLE BLOCKCHAIN FOR DEFI AND NFT.</div>
+                </a>
+            </div>
+            
+            <!-- Columns -->
+            <div class="columns footer-columns is-vcentered">
+                <div class="column is-4">
+                    <!-- Links group -->
+                    <ul class="footer-links">
+                        <li>
+                            <a href="https://t.me/zukmanetwork">Telegram</a>
+                        </li>
+    
+                        <li>
+                            <a href="https://www.twitter.com/zukmanetwork">Twitter</a>
+                        </li>
+    
+                        <li>
+                            <a href="https://www.Facebook.com/zukmanetwork">Facebook</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Newsletter -->
+                <div class="column is-4">
+                    <div class="subscribe-block">
+                        <form>
+                            <!-- Field -->
+                            <div class="control">
+                                <!-- Special input -->
+                                <input class="krypton-subscribe-input" type="email" name="email" placeholder="">
+                                <button class="subscribe-button">
+                                    <span>Subscribe</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- Links group -->
+                <div class="column is-4">
+                    <ul class="footer-links">
+                        <li>
+                            <a href="https://www.linkedin.com/company/zukma-network/">LinkedIn</a>
+                        </li>
+    
+                        <li>
+                            <a href="#">Youtube</a>
+                        </li>
+    
+                        <li>
+                            <a href="https://github.com/zukmachain">Github</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Copyright -->
+            <p class="k-copyright">© 2022 | Zukma. All Rights Reserved</p>
+            <br>
+        </div>
+        
+        <!-- Absolute image -->
+        <img class="solar-system" src="img/bg/solar.svg" alt="">
+    </footer>    <!-- Back To Top Button -->
+    <div x-data="initBackToTop()" x-on:scroll.window="scroll($event)" @click="goTop($event)" id="backtotop"><a href="javascript:" :class="{
+        'visible': scrolled,
+        '': !scrolled
+    }"></a></div>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="./js/bundle.js"></script>
+
+</body>
+
+</html>
